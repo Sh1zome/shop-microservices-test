@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
 import { db } from './db';
 import bcrypt from 'bcrypt';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:5173' })); // Разрешаем запросы с вашего React-приложения
 
 // Регистрация пользователя
 app.post('/register', async (req: Request, res: Response) => {
@@ -83,10 +85,19 @@ app.post('/orders', async (req: Request, res: Response) => {
     }
 });
 
-// Получение всех заказов
+// Получение всех заказов с данными о пользователях и продуктах
 app.get('/orders', async (req: Request, res: Response) => {
-    const orders = await db('orders').select();
-    res.json(orders);
+    try {
+        const orders = await db('orders')
+            .join('users', 'orders.user_id', '=', 'users.id')
+            .join('products', 'orders.product_id', '=', 'products.id')
+            .select('orders.id', 'users.name as user_name', 'products.name as product_name', 'orders.created_at')
+            .orderBy('orders.created_at', 'desc'); // По умолчанию сортируем по дате создания
+
+        res.json(orders);
+    } catch (error) {
+        res.status(400).json({ message: 'Error fetching orders', error });
+    }
 });
 
 // Удаление заказа
