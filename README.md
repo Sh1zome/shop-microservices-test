@@ -1,4 +1,4 @@
-# Project README
+# Shop Microservices Demo
 
 ## Overview
 
