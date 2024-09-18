@@ -30,7 +30,7 @@ const OrderList: React.FC = () => {
             <ul>
                 {orders.map((order) => (
                     <li key={order.id}>
-                        <strong>{order.id}:</strong> <br />
+                        <strong>Order ID:</strong> {order.id} <br />
                         <strong>User:</strong> {order.user_name} <br />
                         <strong>Product:</strong> {order.product_name} <br />
                         <strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}
