@@ -23,7 +23,7 @@ const ProductList: React.FC = () => {
             <ul>
                 {products.map((product) => (
                     <li key={product.id}>
-                        {product.id}: {product.name} - ${product.price}
+                        {product.id}: <strong>{product.name}</strong> - ${product.price}
                     </li>
                 ))}
             </ul>

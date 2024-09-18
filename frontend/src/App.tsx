@@ -7,7 +7,7 @@ import OrdersPage from './pages/OrdersPage';
 const App: React.FC = () => {
     return (
         <Router>
-            <div>
+            <div className="container">
                 <nav>
                     <Link to="/users">Users</Link> |{' '}
                     <Link to="/products">Products</Link> |{' '}
