@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:5173' })); // Разрешаем запросы с вашего React-приложения
 
 const USER_SERVICE_URL = 'http://localhost:3001';
 const PRODUCT_SERVICE_URL = 'http://localhost:3002';

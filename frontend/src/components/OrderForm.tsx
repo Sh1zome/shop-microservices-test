@@ -13,7 +13,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ onAction }) => {
 
     const handleAddOrder = async () => {
         try {
-            await axios.post('http://localhost:3004/orders', { user_id: userId, product_id: productId });
+            await axios.post('http://localhost:3003/orders', { user_id: userId, product_id: productId });
             alert('Order created');
             onAction(); // Обновляем список
         } catch (error) {
@@ -24,7 +24,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ onAction }) => {
     const handleDeleteOrder = async () => {
         if (orderIdToDelete !== null) {
             try {
-                await axios.delete(`http://localhost:3004/orders/${orderIdToDelete}`);
+                await axios.delete(`http://localhost:3003/orders/${orderIdToDelete}`);
                 alert('Order deleted');
                 onAction(); // Обновляем список
             } catch (error) {

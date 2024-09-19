@@ -14,7 +14,7 @@ const UserForm: React.FC<UserFormProps> = ({ onAction }) => {
 
     const handleAddUser = async () => {
         try {
-            await axios.post('http://localhost:3004/register', { name, email, password });
+            await axios.post('http://localhost:3001/users', { name, email, password });
             alert('User added');
             onAction(); // Обновляем список
         } catch (error) {
@@ -25,7 +25,7 @@ const UserForm: React.FC<UserFormProps> = ({ onAction }) => {
     const handleDeleteUser = async () => {
         if (userIdToDelete !== null) {
             try {
-                await axios.delete(`http://localhost:3004/users/${userIdToDelete}`);
+                await axios.delete(`http://localhost:3001/users/${userIdToDelete}`);
                 alert('User deleted');
                 onAction(); // Обновляем список
             } catch (error) {

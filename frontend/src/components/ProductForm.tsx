@@ -13,7 +13,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onAction }) => {
 
     const handleAddProduct = async () => {
         try {
-            await axios.post('http://localhost:3004/products', { name, price });
+            await axios.post('http://localhost:3002/products', { name, price });
             alert('Product added');
             onAction(); // Обновляем список
         } catch (error) {
@@ -24,7 +24,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onAction }) => {
     const handleDeleteProduct = async () => {
         if (productIdToDelete !== null) {
             try {
-                await axios.delete(`http://localhost:3004/products/${productIdToDelete}`);
+                await axios.delete(`http://localhost:3002/products/${productIdToDelete}`);
                 alert('Product deleted');
                 onAction(); // Обновляем список
             } catch (error) {
