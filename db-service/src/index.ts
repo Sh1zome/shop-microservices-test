@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { db } from './db';
 import bcrypt from 'bcrypt';
 import cors from 'cors';
+import knex from 'knex';
 
 const app = express();
 app.use(express.json());
@@ -125,6 +126,36 @@ app.delete('/orders/:id', async (req: Request, res: Response) => {
         res.status(200).json({ message: `Order with ID ${id} deleted` });
     } catch (error) {
         res.status(400).json({ message: 'Error deleting order', error });
+    }
+});
+
+// Удаление заказов по пользователю
+app.delete('/orders/user/:userId', async (req: Request, res: Response) => {
+    const { userId } = req.params;
+    try {
+        const deleted = await db('orders').where({ user_id: userId }).del();
+        if (deleted) {
+            res.status(200).json({ message: `Orders for user ID ${userId} deleted` });
+        } else {
+            res.status(404).json({ message: `No orders found for user ID ${userId}` });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting orders for user', error });
+    }
+});
+
+// Удаление заказов по продукту
+app.delete('/orders/product/:productId', async (req: Request, res: Response) => {
+    const { productId } = req.params;
+    try {
+        const deleted = await db('orders').where({ product_id: productId }).del();
+        if (deleted) {
+            res.status(200).json({ message: `Orders for product ID ${productId} deleted` });
+        } else {
+            res.status(404).json({ message: `No orders found for product ID ${productId}` });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting orders for product', error });
     }
 });
 
