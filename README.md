@@ -116,7 +116,7 @@ Navigate to the React application directory and start the development server.
 
 ```bash
 cd react-app
-npm start
+npm run dev
 ```
 
 ## API Endpoints
@@ -132,6 +132,8 @@ npm start
 - **GET /orders**: List all orders with user and product details.
 - **POST /orders**: Create a new order.
 - **DELETE /orders/:id**: Delete an order by ID.
+- **DELETE /orders/user/:id**: Delete an orders by UserID.
+- **DELETE /orders/product/:id**: Delete an orders by ProductID.
 
 ### **User Service**
 
@@ -157,7 +159,7 @@ curl http://localhost:3001/users
 ```
 #### Register a new user
 ```bash
-curl -X POST http://localhost:3001/register -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "john.doe@example.com", "password": "securepassword"}'
+curl -X POST http://localhost:3001/users -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "john.doe@example.com", "password": "securepassword"}'
 ```
 #### Delete a user by ID
 ```bash
