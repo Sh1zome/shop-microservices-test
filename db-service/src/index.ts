@@ -31,6 +31,14 @@ app.get('/users', async (req: Request, res: Response) => {
     res.json(users);
 });
 
+// Получение одного пользователя
+app.get('/users/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const users = await db('users').where({ id }).select('id', 'name', 'email');
+    res.json(users);
+});
+
 // Удаление пользователя
 app.delete('/users/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -58,6 +66,14 @@ app.post('/products', async (req: Request, res: Response) => {
 // Получение всех продуктов
 app.get('/products', async (req: Request, res: Response) => {
     const products = await db('products').select();
+    res.json(products);
+});
+
+// Получение одного продукта
+app.get('/products/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const products = await db('products').where({ id }).select();
     res.json(products);
 });
 

@@ -16,6 +16,17 @@ app.get('/users', async (req: Request, res: Response) => {
     }
 });
 
+// Получить одного пользователя через DB Service
+app.get('/users/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        const response = await axios.get(`${DB_SERVICE_URL}/users/${id}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ message: `Error fetching user ${id}`, error });
+    }
+});
+
 // Зарегистрировать нового пользователя через DB Service
 app.post('/users', async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
@@ -24,6 +35,17 @@ app.post('/users', async (req: Request, res: Response) => {
         res.status(201).json(response.data);
     } catch (error) {
         res.status(500).json({ message: 'Error creating user', error });
+    }
+});
+
+// Удалить пользователя через DB Service
+app.delete('/users/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        await axios.delete(`${DB_SERVICE_URL}/users/${id}`);
+        res.status(200).json({ message: `User with ID ${id} deleted` });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting user', error });
     }
 });
 
